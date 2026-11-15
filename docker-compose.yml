@@ -1,0 +1,18 @@
+services:
+  db:
+    image: postgres:16
+    container_name: biofactory_db
+    environment:
+      POSTGRES_USER: biofactory
+      POSTGRES_PASSWORD: biofactory_dev
+      POSTGRES_DB: biofactory
+    ports: ["5432:5432"]
+    volumes: ["pgdata:/var/lib/postgresql/data"]
+  # Etapa 3: broker MQTT para integración industrial
+  mqtt:
+    image: eclipse-mosquitto:2
+    container_name: biofactory_mqtt
+    ports: ["1883:1883"]
+    command: mosquitto -c /mosquitto-no-auth.conf
+volumes:
+  pgdata:
